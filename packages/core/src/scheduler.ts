@@ -31,7 +31,7 @@ type CountMap = Map<SchedulerJob, number>
 export function nextTick<R = void>(fn?: () => R): Promise<Awaited<R>> {
   const p = currentFlushPromise || resolvedPromise
   // eslint-disable-next-line promise/prefer-await-to-then
-  return fn ? p.then(fn) : p
+  return fn ? (p.then(fn) as Promise<Awaited<R>>) : p
 }
 
 export function queueJob(job: SchedulerJob): void {
